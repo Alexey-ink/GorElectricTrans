@@ -1,10 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e0f7fa; /* Светло-голубой фон */
+            overflow: hidden; /* Чтобы убрать скролл во время анимации */
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .menu-item {
+            background-color: #b3e5fc; /* Голубой цвет для карточек */
+            border: 1px solid #81d4fa; /* Голубая рамка */
+            border-radius: 8px;
+            padding: 10px 20px; /* Уменьшенное и гибкое пространство */
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #01579b; /* Тёмно-синий цвет текста */
+            white-space: nowrap; /* Текст в одну строку */
+            display: inline-block; /* Размер блока зависит от текста */
+        }
+
+        .menu-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-item i {
+            margin-right: 8px; /* Отступ справа для иконок */
+        }
+
+        /* Анимация для экрана загрузки */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #01579b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 2s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .preloader img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain; /* Сохраняет пропорции логотипа */
+        }
+    </style>
+{% endblock %}
+{% block content %}
 <body>
-$END$
+    <!-- Экран загрузки -->
+    <div class="preloader">
+        <img src="{% static 'images/logo1.png' %}" alt="Загрузка...">
+    </div>
+
+    <div class="menu">
+        <div class="menu-item">
+            <i class="fas fa-file-alt"></i> Подать заявку
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-calendar-alt"></i> Просмотреть расписание отпусков
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-question-circle"></i> Какая-то хайня 1
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-question-circle"></i> Какая-то хайня 2
+        </div>
+    </div>
+
+    <script>
+        // Ожидание полной загрузки страницы
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('hidden');
+
+            const menu = document.querySelector('.menu');
+            setTimeout(() => {
+                menu.style.opacity = 1;
+                menu.style.transform = 'translateY(0)';
+            }, 1000); // Задержка для завершения анимации экрана загрузки
+        });
+    </script>
 </body>
-</html>
+{% endblock %}

@@ -122,3 +122,31 @@ def admin_dashboard_view(request):
             })
 
     return render(request, 'main/admin_dashboard.html', {'employee_data': employee_data})
+
+# views.py
+def auth_view(request):
+    login_form = LoginForm(request=request, data=request.POST if request.method == 'POST' and 'login' in request.POST else None)
+    register_form = RegisterUserForm(request.POST if request.method == 'POST' and 'register' in request.POST else None)
+
+    if request.method == 'POST':
+        if 'login' in request.POST and login_form.is_valid():
+            user = login_form.get_user()
+            if user:
+                login(request, user)
+                return redirect('apps')
+        elif 'register' in request.POST and register_form.is_valid():
+            user = register_form.save()
+            profile = UserProfile(user=user, patronymic=register_form.cleaned_data.get('patronymic'), position=register_form.cleaned_data.get('position'))
+            profile.save()
+            login(request, user)
+            return redirect('apps')
+
+    context = {
+        'login_form': login_form,
+        'register_form': register_form
+    }
+    return render(request, 'main/auth.html', context)
+
+def menu(request):
+    # Логика вашего представления здесь
+    return render(request, 'main/menu.html')

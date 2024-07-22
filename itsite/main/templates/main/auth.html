@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="tabs">
+        <button class="tab-link active" onclick="openTab(event, 'login')">Вход</button>
+        <button class="tab-link" onclick="openTab(event, 'register')">Регистрация</button>
+    </div>
+    <div id="login" class="tab-content active">
+        <h2>Вход</h2>
+        <form method="post" action="{% url 'login' %}" class="login-form">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+    <div id="register" class="tab-content">
+        <h2>Регистрация</h2>
+        <form method="post" action="{% url 'register' %}" class="register-form">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <button type="submit" class="btn">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/auth.js' %}"></script>
+{% endblock %}
