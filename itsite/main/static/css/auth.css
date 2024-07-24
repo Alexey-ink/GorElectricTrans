@@ -13,15 +13,16 @@ body {
     background: white;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    padding: 30px;
-    transition: all 0.3s ease;
+    width: 360px; /* Уменьшена ширина контейнера */
+    padding: 20px; /* Уменьшены отступы */
+    display: flex;
+    flex-direction: column;
 }
 
 .tabs {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* Уменьшен отступ снизу */
     border-bottom: 2px solid #e0e0e0;
 }
 
@@ -29,8 +30,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;
-    font-size: 18px;
+    padding: 8px; /* Уменьшены отступы */
+    font-size: 16px; /* Уменьшен размер шрифта */
     color: #555;
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
@@ -48,28 +49,30 @@ body {
 
 .tab-content.active {
     display: block;
+    overflow: hidden; /* Скрыть переполнение */
 }
 
 form {
     display: flex;
     flex-direction: column;
+    max-height: 100%; /* Убедитесь, что форма занимает весь доступный размер */
 }
 
 label {
-    margin-bottom: 2px; /* Уменьшите отступ ниже метки */
+    margin-bottom: 1px; /* Уменьшите отступ ниже метки */
     color: #333;
 }
 
 input {
-    margin-bottom: 10px; /* Уменьшите отступ ниже поля ввода */
-    padding: 10px;
+    margin-bottom: 8px; /* Уменьшите отступ ниже поля ввода */
+    padding: 8px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
 }
 
 button {
-    padding: 10px;
+    padding: 8px;
     background: #007bff;
     color: white;
     border: none;
@@ -91,4 +94,11 @@ button:hover {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Прокрутка формы регистрации */
+.tab-content #register {
+    padding-top: 20px; /* Добавляем отступ сверху */
+    max-height: 400px; /* Устанавливаем максимальную высоту */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
 }

@@ -8,10 +8,7 @@ from .views import *
 urlpatterns = [
     path('menu/', menu, name='menu'),
     path('auth/', views.auth_view, name='auth'),
-    path('', views.main, name = 'home'),
-    path('about', views.about),
-    path('register/', register, name='register'),
-    path('login/', login_view, name='login'),
+    path('', views.auth_view, name = 'home'),
     path('logout/', logout_view, name='logout'),
     path('apps/', application_list_and_create, name='apps'),
     path('gantt/', views.gantt_chart, name='gantt_chart'),

@@ -12,17 +12,21 @@
     </div>
     <div id="login" class="tab-content active">
         <h2>Вход</h2>
-        <form method="post" action="{% url 'login' %}" class="login-form">
+        <form method="post" action="{% url 'auth' %}" class="login-form">
             {% csrf_token %}
+            {{ login_form.non_field_errors }}
             {{ login_form.as_p }}
+            <input type="hidden" name="login" value="1">
             <button type="submit" class="btn btn-primary">Войти</button>
         </form>
     </div>
     <div id="register" class="tab-content">
         <h2>Регистрация</h2>
-        <form method="post" action="{% url 'register' %}" class="register-form">
+        <form method="post" action="{% url 'auth' %}" class="register-form">
             {% csrf_token %}
+            {{ register_form.non_field_errors }}
             {{ register_form.as_p }}
+            <input type="hidden" name="register" value="1">
             <button type="submit" class="btn">Зарегистрироваться</button>
         </form>
     </div>
