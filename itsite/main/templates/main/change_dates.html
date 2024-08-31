@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменение дат заявки</title>
+    <link rel="stylesheet" href="{% static 'css/change_dates.css' %}">
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1>Изменение дат заявки</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="start_date">Дата начала:</label>
+                <input type="date" id="start_date" name="start_date" value="{{ application.start_date }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="end_date">Дата окончания:</label>
+                <input type="date" id="end_date" name="end_date" value="{{ application.end_date }}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="comment">Комментарий:</label>
+                <textarea id="comment" name="comment" class="form-control" placeholder="Добавьте комментарий"></textarea>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-button">Обновить заявку</button>
+                <a href="{% url 'admin_dashboard' %}" class="back-link">Назад к списку заявок</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

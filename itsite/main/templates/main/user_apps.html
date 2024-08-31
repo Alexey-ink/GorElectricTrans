@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои Заявления</title>
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% endblock %}
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1>Ваши поданные заявления</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th> № </th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                    <th>Тип отпуска</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                <tr class="{% if application.app_status == 'under_consideration' %}under-consideration-row{% else %}other-row{% endif %}">
+                    <td class="row-number"></td> <!-- Класс для идентификации -->
+                    <td>{{ application.start_date }}</td>
+                    <td>{{ application.end_date }}</td>
+                    <td>{{ application.leave_type }}</td>
+                    <td>
+                        <div class="status-icon">
+                            {% if application.status == 'approved' %}
+                                <i class="fas fa-check-circle approved"></i>
+                                <span class="status-text">Утверждено</span>
+                            {% elif application.status == 'rejected' %}
+                                <i class="fas fa-times-circle rejected"></i>
+                                <span class="status-text">Отклонено</span>
+                            {% elif application.status == 'proposed_change' %}
+                                <i class="fas fa-edit proposed-change"></i>
+                                <span class="status-text">Предложено изменение</span>
+                            {% elif application.status == 'under_consideration' %}
+                                <i class="fas fa-clock"></i>
+                                <span class="status-text">Под рассмотрением</span>
+                            {% else %}
+                                <span class="status-text">{{ application.app_status }}</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Кнопка "Главное меню" -->
+        <div class="main-menu-button">
+            <a href="{% url 'menu' %}" class="btn btn-primary">Главное меню</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/admin_dashboard.js' %}"></script>
+</body>
+</html>

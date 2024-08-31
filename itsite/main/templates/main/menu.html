@@ -15,13 +15,10 @@
             <i class="fas fa-file-alt"></i> Подать заявку
         </button>
         <button id="schedule-list-btn" class="menu-item">
-            <i class="fas fa-calendar-alt"></i> Просмотреть расписание отпусков списком
+            <i class="fas fa-calendar-alt"></i> Ваши заявки
         </button>
-        <button id="schedule-chart-btn" class="menu-item">
-            <i class="fas fa-question-circle"></i> Просмотреть расписание отпусков на диаграмме
-        </button>
-        <button id="something-else-btn" class="menu-item inactive" disabled>
-            <i class="fas fa-question-circle"></i> Еще че-нибудь
+        <button id="vacation-calc-btn" class="menu-item" disabled>
+            <i class="fas fa-calculator"></i> Еще что-нибудь?
         </button>
         <button id="logout-btn" class="menu-item logout-btn">
             <i class="fas fa-sign-out-alt"></i> Выйти
@@ -30,18 +27,5 @@
 
     <script src="{% static 'js/menu.js' %}"></script>
 
-    <script>
-        // Ожидание полной загрузки страницы
-        window.addEventListener('load', function() {
-            const preloader = document.querySelector('.preloader');
-            preloader.classList.add('hidden');
-
-            const menu = document.querySelector('.menu');
-            setTimeout(() => {
-                menu.style.opacity = 1;
-                menu.style.transform = 'translateY(0)';
-            }, 1000); // Задержка для завершения анимации экрана загрузки
-        });
-    </script>
 </body>
 {% endblock %}

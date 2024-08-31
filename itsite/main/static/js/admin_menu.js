@@ -1,28 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Найдите все кнопки по идентификаторам
     const applyButton = document.getElementById('apply-btn');
-    const scheduleListButton = document.getElementById('schedule-list-btn');
-    const logoutButton = document.getElementById('logout-btn');
+    const vacationCalculationButton = document.getElementById('vacation-calculation-btn');
+    const logoutButton = document.getElementById('logout');
 
     // Установите обработчики событий для активных кнопок
     applyButton.addEventListener('click', function() {
-        window.location.href = '/apps/'; // URL для кнопки "Подать заявку"
+        window.location.href = '/administrator'; // URL для кнопки "Подать заявку"
     });
 
-    scheduleListButton.addEventListener('click', function() {
-        window.location.href = '/user_apps/'; // URL для кнопки "Просмотреть расписание отпусков списком"
+    vacationCalculationButton.addEventListener('click', function() {
+        window.location.href = '/logout'; // URL для кнопки "Ваши заявки"
     });
-
-
-    // Для неактивной кнопки просто не добавляем обработчик событий
 
     // Обработчик для кнопки выхода
     logoutButton.addEventListener('click', function() {
-        window.location.href = '/logout/'; // URL для выхода из системы
+        window.location.href = '/logout/'; // URL для кнопки "Выйти"
     });
 });
 
-
+// Ожидание полной загрузки страницы
 window.addEventListener('load', function() {
     const preloader = document.querySelector('.preloader');
     preloader.classList.add('hidden');

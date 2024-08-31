@@ -1,101 +1,91 @@
 /* application.css */
 body {
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-    }
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
 
-    .application-container {
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        width: 480px;
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden; /* Скрытие переполнения */
-    }
+.application-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 480px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Скрытие переполнения */
+}
 
-    .application-container h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-        text-align: center;
-        border-bottom: 2px solid;
-        padding-bottom: 10px;
-    }
+.application-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid;
+    padding-bottom: 10px;
+}
 
-    .user-info p {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 8px;
-    }
+.user-info p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
+}
 
-    .user-info strong {
-    }
+.application-form {
+    display: flex;
+    flex-direction: column;
+}
 
-    .application-form {
-        display: flex;
-        flex-direction: column;
-    }
+.application-form label {
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 14px;
+}
 
-    .application-form label {
-        margin-bottom: 4px;
-        color: #333;
-        font-size: 14px;
-    }
+.application-form input,
+.application-form select,
+.application-form textarea {
+    margin-bottom: 12px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
 
-    .application-form input,
-    .application-form select,
-    .application-form textarea {
-        margin-bottom: 12px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 14px;
-    }
+.application-form button {
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-size: 16px;
+}
 
-    .application-form button {
-        padding: 12px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.3s ease;
-        font-size: 16px;
-    }
+.application-form button:hover {
+    background: #0056b3;
+}
 
-    .application-form button:hover {
-        background: #0056b3;
-    }
+.main-menu-button {
+    margin-top: 20px;
+    text-align: center;
+}
 
-    .user-applications h3 {
-        font-size: 20px;
-        margin-top: 30px;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 5px;
-    }
+.main-menu-button a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    font-size: 16px;
+}
 
-    .application-list {
-        list-style-type: none;
-        padding-left: 0;
-        margin-top: 10px;
-    }
-
-    .application-list li {
-        padding: 10px;
-        background-color: #f0f8ff;
-        border-radius: 5px;
-        margin-bottom: 5px;
-        font-size: 14px;
-        transition: background-color 0.3s ease;
-    }
-
-    .application-list li:hover {
-        background-color: #cceeff;
-    }
+.main-menu-button a:hover {
+    background: #218838;
+}

@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import *
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth import login as auth_login
 from .forms import *
@@ -31,16 +32,6 @@ def application_list_and_create(request):
     applications = Application.objects.filter(user=request.user)
     return render(request, 'main/application.html', {'form': form, 'applications': applications})
 
-@login_required
-def gantt_chart(request):
-    current_year = now().year
-    leaves = Application.objects.select_related('user', 'leave_type').filter(
-        start_date__year=current_year
-    )
-    context = {
-        'leaves': leaves
-    }
-    return render(request, 'main/gantt_chart.html', context)
 
 def admin_dashboard_view(request):
 
@@ -58,13 +49,22 @@ def admin_dashboard_view(request):
                 'position': employee.position,
                 'start_date': app.start_date,
                 'end_date': app.end_date,
-                'leave_type': app.leave_type.name
+                'leave_type': app.leave_type.name,
+                'application_id': app.id,
+                'app_status': app.status,
+                'patronymic': employee.patronymic
             })
 
     return render(request, 'main/admin_dashboard.html', {'employee_data': employee_data})
+
+@login_required(login_url='auth')
 def menu(request):
-    # Логика вашего представления здесь
-    return render(request, 'main/menu.html')
+    # Проверяем, состоит ли пользователь в группе "Администраторы без суперпользовательских прав"
+    if request.user.groups.filter(name='Administrator (not superuser)').exists():
+        return render(request, 'main/admin_menu.html')
+    else:
+        # Если пользователь не администратор, показываем обычное меню
+        return render(request, 'main/menu.html')
 
 
 def auth_view(request):
@@ -109,3 +109,55 @@ def auth_view(request):
         'register_form': register_form
     }
     return render(request, 'main/auth.html', context)
+
+
+@login_required
+def approve_application(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+    if request.method == 'POST':
+        application.status = 'approved'
+        application.save()
+        messages.success(request, 'Заявка утверждена.')
+    return redirect('admin_dashboard')  # Перенаправление на страницу списка заявок
+
+
+@login_required
+def reject_application(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+    if request.method == 'POST':
+        application.status = 'rejected'
+        application.save()
+        messages.success(request, 'Заявка отклонена.')
+    return redirect('admin_dashboard')  # Перенаправление на страницу списка заявок
+
+
+@login_required
+def change_application_dates(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+    if request.method == 'POST':
+        # Получение данных из формы
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        comment = request.POST.get('comment')
+
+        # Обновление полей заявки
+        application.start_date = start_date
+        application.end_date = end_date
+        application.status = 'proposed_change'
+        application.save()
+
+        messages.success(request, 'Заявка обновлена.')
+        return redirect('admin_dashboard')  # Перенаправление на страницу списка заявок
+
+    return render(request, 'main/change_dates.html', {'application': application})
+
+
+@login_required
+def user_apps(request):
+    # Получаем заявки для текущего пользователя
+    applications = Application.objects.filter(user=request.user)
+
+    context = {
+        'applications': applications
+    }
+    return render(request, 'main/user_apps.html', context)

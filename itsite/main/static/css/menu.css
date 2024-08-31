@@ -6,12 +6,14 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #e0f7fa; /* Светло-голубой фон */
-    overflow: hidden; /* Чтобы убрать скролл во время анимации */
+    overflow: hidden;
 }
 
 .menu {
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две колонки */
+    grid-template-rows: 1fr 1fr; /* Две строки */
+    gap: 30px; /* Пространство между кнопками */
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 1s, transform 1s;
@@ -19,26 +21,29 @@ body {
 
 .menu-item {
     background-color: #b3e5fc; /* Голубой цвет для карточек */
-    border: 1px solid #81d4fa; /* Голубая рамка */
-    border-radius: 8px;
-    padding: 10px 20px; /* Уменьшенное и гибкое пространство */
+    border: 2px solid #81d4fa; /* Голубая рамка */
+    border-radius: 15px; /* Большие скругленные углы */
+    padding: 20px 30px; /* Увеличенное пространство */
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     color: #01579b; /* Тёмно-синий цвет текста */
-    white-space: nowrap; /* Текст в одну строку */
-    display: inline-block; /* Размер блока зависит от текста */
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem; /* Увеличенный размер текста */
 }
 
 .menu-item:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Увеличенная тень при наведении */
 }
 
 .menu-item i {
-    margin-right: 8px; /* Отступ справа для иконок */
+    margin-right: 15px; /* Увеличенный отступ справа для иконок */
+    font-size: 2rem; /* Увеличенный размер иконок */
 }
 
-/* Анимация для экрана загрузки */
 .preloader {
     position: fixed;
     top: 0;
@@ -59,18 +64,18 @@ body {
 }
 
 .preloader img {
-    width: 80%;
-    height: 80%;
-    object-fit: contain; /* Сохраняет пропорции логотипа */
+    width: 50%; /* Уменьшенный размер логотипа */
+    height: 50%;
+    object-fit: contain;
 }
 
 .logout-btn {
     background-color: #ff4d4d; /* Красный цвет для кнопки выхода */
-    border: 1px solid #e0a0a0; /* Светло-красная рамка */
-    color: #fff; /* Белый цвет текста */
+    border: 2px solid #e0a0a0; /* Светло-красная рамка */
+    color: #fff;
 }
 
 .logout-btn:hover {
-    background-color: #e04040; /* Темнее при наведении */
-    border-color: #d50000; /* Темнее рамка при наведении */
+    background-color: #e04040;
+    border-color: #d50000;
 }

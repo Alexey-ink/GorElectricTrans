@@ -1,0 +1,171 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+    flex: 1;
+}
+
+h1 {
+    font-size: 28px;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+td {
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+}
+
+tr:hover td {
+    background-color: #e6f7ff;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+td:first-child,
+th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+td:last-child,
+th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-buttons .approve-reject {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons form {
+    display: inline;
+}
+
+.action-buttons button {
+    width: 100%; /* Ширина кнопок занимает всю доступную ширину */
+    padding: 10px;
+    font-size: 13px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.approve-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.reject-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.change-button {
+    background-color: #ffc107;
+    color: white;
+}
+
+.approve-button:hover {
+    background-color: #218838;
+}
+
+.reject-button:hover {
+    background-color: #c82333;
+}
+
+.change-button:hover {
+    background-color: #e0a800;
+}
+
+
+/* Основные стили для status-icon */
+.status-icon .proposed-change {
+    color: #ffc107; /* Желтый цвет для предложенного изменения */
+}
+
+.status-icon .approved {
+    color: #28a745; /* Зеленый цвет для утвержденного */
+}
+
+.status-icon .rejected {
+    color: #dc3545; /* Красный цвет для отклоненного */
+}
+
+.status-text {
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+.fas.fa-edit.proposed-change {
+    color: #ffc107; /* Желтый цвет для иконки предложенного изменения */
+}
+
+.main-menu-button {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.main-menu-button a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    font-size: 16px;
+}
+
+.main-menu-button a:hover {
+    background: #218838;
+}

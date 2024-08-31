@@ -4,7 +4,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
 {% endblock %}
 
-
 {% block content %}
 <div class="application-container">
     <h2>Подача заявления для утверждения отпуска</h2>
@@ -25,14 +24,11 @@
             </form>
         </div>
 
-        <div class="user-applications">
-            <h3>Ваши заявления</h3>
-            <ul class="application-list">
-                {% for application in applications %}
-                    <li>С {{ application.start_date }} по {{ application.end_date }}</li>
-                {% endfor %}
-            </ul>
+        <!-- Добавление кнопки "Главное меню" -->
+        <div class="main-menu-button">
+            <a href="{% url 'menu' %}" class="btn btn-primary">Главное меню</a>
         </div>
+
     </div>
 </div>
 {% endblock %}

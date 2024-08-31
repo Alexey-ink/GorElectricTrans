@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+{% block content %}
+<body>
+    <!-- Экран загрузки -->
+    <div class="preloader">
+        <img src="{% static 'images/logo1.png' %}" alt="Загрузка...">
+    </div>
+
+   <div class="menu">
+        <button id="apply-btn" class="menu-item">
+            <i class="fas fa-file-alt"></i> Поданные заявки
+        </button>
+
+       <button id="vacation-calculation-btn" class="menu-item" disabled>
+            <i class="fas fa-calendar-alt"></i> Настройки отпускных
+        </button>
+
+       <button id="change-calendar" class="menu-item" disabled>
+            <i class="fas fa-calendar-alt"></i> Добавить праздничные дни
+        </button>
+
+       <button id="add_vacation" class="menu-item">
+            <i class="fas fa-calendar-alt"></i> ББ
+        </button>
+
+       <button id="logout" class="menu-item logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Выйти
+       </button>
+
+    </div>
+
+    <script src="{% static 'js/admin_menu.js' %}"></script>
+
+</body>
+{% endblock %}
+</html>

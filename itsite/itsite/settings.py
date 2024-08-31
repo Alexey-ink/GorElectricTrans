@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'example',
         'USER': 'root',
-        'PASSWORD': 'vdv32514',
+        'PASSWORD': 'A1l2e3k4s5e6y7',
         'HOST': 'localhost',   # Или IP-адрес вашего сервера MySQL
         'PORT': '3306',        # Порт, на котором запущен MySQL
     }
@@ -135,3 +135,4 @@ WEBPACK_LOADER = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
