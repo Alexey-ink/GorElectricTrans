@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     vacationCalculationButton.addEventListener('click', function() {
-        window.location.href = '/logout'; // URL для кнопки "Ваши заявки"
+        window.location.href = '/settings'; // URL для кнопки "Ваши заявки"
     });
 
     // Обработчик для кнопки выхода

@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
 
+
 from .models import *
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -33,20 +34,26 @@ def application_list_and_create(request):
     return render(request, 'main/application.html', {'form': form, 'applications': applications})
 
 
-def admin_dashboard_view(request):
+from django.shortcuts import render
+from .models import CustomUser, Application
 
-    employees = UserProfile.objects.select_related('user').all()
+def admin_dashboard_view(request):
+    # Получаем всех сотрудников из модели CustomUser
+    employees = CustomUser.objects.select_related('position').all()
+
+    # Получаем все заявки на отпуск
     applications = Application.objects.select_related('user', 'leave_type').all()
 
     employee_data = []
     for employee in employees:
-        user_applications = applications.filter(user=employee.user)
+        # Фильтруем заявки по текущему пользователю
+        user_applications = applications.filter(user=employee)
         for app in user_applications:
             employee_data.append({
-                'username': employee.user.username,
-                'last_name': employee.user.last_name,
-                'first_name': employee.user.first_name,
-                'position': employee.position,
+                'username': employee.username,
+                'last_name': employee.last_name,
+                'first_name': employee.first_name,
+                'position': employee.position.get_name_display,
                 'start_date': app.start_date,
                 'end_date': app.end_date,
                 'leave_type': app.leave_type.name,
@@ -84,22 +91,19 @@ def auth_view(request):
         elif 'register' in request.POST and register_form.is_valid():
             user = register_form.save()
 
-            # Создаем профиль пользователя или получаем существующий
-            profile, created = UserProfile.objects.get_or_create(user=user)
-
-            # Обновляем поля профиля
-            profile.patronymic = register_form.cleaned_data.get('patronymic')
-            profile.position = register_form.cleaned_data.get('position')
+            # Обновляем поля пользователя (CustomUser)
+            user.patronymic = register_form.cleaned_data.get('patronymic')
+            user.position = register_form.cleaned_data.get('position')
 
             # Отладочный вывод перед сохранением
-            print(f"Saving Profile: {profile.patronymic}, {profile.position}")
+            print(f"Saving User: {user.patronymic}, {user.position}")
 
-            # Сохраняем профиль
-            profile.save()
+            # Сохраняем пользователя
+            user.save()
 
             # Проверка, что данные сохранены
-            saved_profile = UserProfile.objects.get(user=user)
-            print(f"Profile in DB: {saved_profile.patronymic}, {saved_profile.position}")
+            saved_user = CustomUser.objects.get(username=user.username)
+            print(f"User in DB: {saved_user.patronymic}, {saved_user.position}")
 
             auth_login(request, user)
             return redirect('menu')
@@ -161,3 +165,30 @@ def user_apps(request):
         'applications': applications
     }
     return render(request, 'main/user_apps.html', context)
+
+
+def settings_view(request):
+    if not request.user.groups.filter(name='Administrator (not superuser)').exists():
+        return redirect('menu')  # Ограничение доступа к странице настроек только для суперпользователей
+
+    vacation_times = VacationTime.objects.select_related('position', 'leave_type').all()
+
+    if request.method == 'POST':
+        for vacation_time in vacation_times:
+            field_name = f"days_{vacation_time.id}"
+            if field_name in request.POST:
+                new_days = request.POST[field_name]
+                if new_days.isdigit():
+                    vacation_time.number_of_days = int(new_days)
+                    vacation_time.save()
+
+                    # Найдите и обновите соответствующий UserLeaveBalance
+                    user_leave_balances = UserLeaveBalance.objects.filter(leave_type=vacation_time.leave_type)
+                    for balance in user_leave_balances:
+                        balance.remaining_days = vacation_time.number_of_days
+                        balance.save()
+
+    context = {
+        'vacation_times': vacation_times,
+    }
+    return render(request, 'main/settings.html', context)
