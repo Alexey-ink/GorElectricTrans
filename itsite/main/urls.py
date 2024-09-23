@@ -16,5 +16,7 @@ urlpatterns = [
     path('reject/<int:application_id>/', views.reject_application, name='reject_application'),
     path('change_dates/<int:application_id>/', views.change_application_dates, name='change_application_dates'),
     path('user_apps/', views.user_apps, name='user_apps'),
+    path('gantt/', views.gantt_chart, name='gantt_chart'),
+    path('vacation_calendar/', views.vacation_slots, name='vacation_slots'),
     path('settings/', views.settings_view, name='settings'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

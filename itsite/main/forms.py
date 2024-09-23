@@ -29,6 +29,8 @@ class ApplicationForm(forms.ModelForm):
         labels = {
             'leave_type': 'Тип отпуска',  # Указание метки для поля leave_type
         }
+
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь отпусков</title>
+    {% block extra_css %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #e7f3ff; /* Светлый голубой фон */
+                margin: 0;
+                padding: 20px;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            h1 {
+                color: #007bff; /* Темно-голубой цвет заголовка */
+                font-size: 2.5em;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            }
+            form {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            label {
+                font-weight: bold;
+            }
+            select, input[type="number"] {
+                padding: 10px;
+                border: 1px solid #007bff;
+                border-radius: 5px;
+                font-size: 16px;
+                outline: none;
+                transition: border-color 0.3s;
+            }
+            select:focus, input[type="number"]:focus {
+                border-color: #0056b3; /* Темно-синий при фокусе */
+            }
+            button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            .calendar-container {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 10px;
+                margin-top: 20px;
+            }
+            .day {
+                padding: 15px;
+                text-align: center;
+                border-radius: 8px;
+                font-size: 16px;
+                transition: background-color 0.3s;
+            }
+            .free {
+                background-color: #28a745; /* Зеленый */
+                color: white;
+            }
+            .few-spots {
+                background-color: #ffc107; /* Желтый */
+                color: black;
+            }
+            .no-spots {
+                background-color: #dc3545; /* Красный */
+                color: white;
+            }
+            .empty-day {
+                background-color: #f0f0f0; /* Серый фон для пустых дней */
+            }
+        </style>
+    {% endblock %}
+</head>
+{% block content %}
+<body>
+    <div class="header">
+        <h1>Календарь отпусков</h1>
+        <form method="get" action=".">
+            <label for="month">Месяц:</label>
+            <select name="month" id="month">
+                {% for i in months %}
+                    <option value="{{ i }}" {% if i == month %}selected{% endif %}>{{ i }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="year">Год:</label>
+            <input type="number" name="year" id="year" value="{{ year }}" min="2000" max="2100">
+
+            <button type="submit">Показать</button>
+        </form>
+    </div>
+
+    <div class="calendar-container">
+        <div>Пн</div>
+        <div>Вт</div>
+        <div>Ср</div>
+        <div>Чт</div>
+        <div>Пт</div>
+        <div>Сб</div>
+        <div>Вс</div>
+
+        {% for day in days_with_colors %}
+            <div class="day {{ day.color }}">
+                {{ day.day }}<br>
+                {% if day.color == 'free' %}
+                    Свободно
+                {% elif day.color == 'few-spots' %}
+                    Мало мест
+                {% else %}
+                    Нет мест
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+{% endblock %}
+</html>

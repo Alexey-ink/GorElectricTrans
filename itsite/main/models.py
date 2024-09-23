@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.db.models.signals import post_save, post_migrate  # Импортируем необходимые сигналы
-
+from datetime import datetime, timedelta
 
 class LeaveType(models.Model):
     ANNUAL_PAID = 'ежегодный оплачиваемый'
@@ -20,6 +20,7 @@ class LeaveType(models.Model):
     ]
 
     name = models.CharField(max_length=100, choices=LEAVE_TYPE_CHOICES, verbose_name="Тип отпуска")
+
 
     def __str__(self):
         return self.name
@@ -47,6 +48,22 @@ class Application(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.leave_type.name} - {self.start_date} to {self.end_date} - {self.get_status_display()}"
 
+
+class VacationSlot(models.Model):
+    date = models.DateField(unique=True)  # Уникальная дата
+    available_slots = models.IntegerField(default=3)  # Доступные места, по умолчанию 3
+
+    def __str__(self):
+        return f"{self.date} - {self.available_slots} мест"
+
+def initialize_vacation_slots():
+    start_date = datetime.now().date()  # Начальная дата
+    end_date = start_date + timedelta(days=365)  # Конечная дата через год
+
+    current_date = start_date
+    while current_date <= end_date:
+        VacationSlot.objects.get_or_create(date=current_date, defaults={'available_slots': 3})
+        current_date += timedelta(days=1)
 
 class CustomUser(AbstractUser):
     patronymic = models.CharField(max_length=150, blank=True, null=True)

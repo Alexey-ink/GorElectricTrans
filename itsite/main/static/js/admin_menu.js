@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const applyButton = document.getElementById('apply-btn');
     const vacationCalculationButton = document.getElementById('vacation-calculation-btn');
     const logoutButton = document.getElementById('logout');
+    const ganttButton = document.getElementById('gantt-calendar');
 
     // Установите обработчики событий для активных кнопок
     applyButton.addEventListener('click', function() {
@@ -11,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     vacationCalculationButton.addEventListener('click', function() {
         window.location.href = '/settings'; // URL для кнопки "Ваши заявки"
+    });
+
+    ganttButton.addEventListener('click', function() {
+        window.location.href = '/gantt'; // URL для кнопки "Ваши заявки"
     });
 
     // Обработчик для кнопки выхода
